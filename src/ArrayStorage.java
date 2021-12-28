@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * Array based storage for Resumes
@@ -8,7 +7,7 @@ public class ArrayStorage {
     Resume[] storage = new Resume[10000];
 
     void clear() {
-        Arrays.fill(storage, 0, size()+1, null);
+        Arrays.fill(storage, 0, size() + 1, null);
     }
 
     void save(Resume r) {
@@ -40,7 +39,7 @@ public class ArrayStorage {
 
         }
         for (int i = numberForDelete; i <= size(); i++) {
-            storage[i] = storage[i+1];
+            storage[i] = storage[i + 1];
             storage[i + 1] = null;
         }
     }
