@@ -1,3 +1,5 @@
+package com.uirise.webapp;
+
 import com.uirise.webapp.model.Resume;
 import com.uirise.webapp.storage.ArrayStorage;
 

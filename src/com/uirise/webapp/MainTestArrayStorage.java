@@ -1,3 +1,5 @@
+package com.uirise.webapp;
+
 import com.uirise.webapp.model.Resume;
 import com.uirise.webapp.storage.ArrayStorage;
 
@@ -20,6 +22,7 @@ public class MainTestArrayStorage {
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
+        ARRAY_STORAGE.save(r3);
         ARRAY_STORAGE.save(r3);
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
