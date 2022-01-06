@@ -7,9 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
-    private int size;
+public class ArrayStorage  extends AbstractArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -18,7 +16,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (findIndexResume(r.toString()) == -1) {
+        if (getIndex(r.getUuid()) == -1) {
             if (size < storage.length) {
                 storage[size] = r;
                 size++;
@@ -32,24 +30,17 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        int indexResume = findIndexResume(resume.getUuid());
+        int indexResume = getIndex(resume.getUuid());
         if (indexResume != -1) {
             storage[indexResume] = resume;
             System.out.println("INFO: Resume with uuid " + resume + " update successful");
+        } else {
+            System.out.println("ERROR: Resume with uuid " + resume + " not updated");
         }
-        System.out.println("ERROR: Resume with uuid " + resume + " not updated");
-    }
-
-    public Resume get(String uuid) {
-        int indexResume = findIndexResume(uuid);
-        if (indexResume != -1) {
-            return storage[indexResume];
-        }
-        return null;
     }
 
     public void delete(String uuid) {
-        int indexResume = findIndexResume(uuid);
+        int indexResume = getIndex(uuid);
         if (indexResume != -1) {
             storage[indexResume] = storage[size - 1];
             storage[size - 1] = null;
@@ -72,7 +63,7 @@ public class ArrayStorage {
         return size;
     }
 
-    private int findIndexResume(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].toString().equals(uuid)) {
                 return i;
