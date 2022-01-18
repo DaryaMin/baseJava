@@ -20,14 +20,14 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
 
-    public AbstractArrayStorageTest(Storage storage) {
-        this.storage = storage;
-    }
-
     Resume newResume1 = new Resume(UUID_1);
     Resume newResume2 = new Resume(UUID_2);
     Resume newResume3 = new Resume(UUID_3);
     Resume newResume4 = new Resume(UUID_4);
+
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -54,9 +54,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Resume[] r = new Resume[]{newResume1, newResume2, newResume3};
+        Resume[] expected = new Resume[]{newResume1, newResume2, newResume3};
         assertEquals(storage.size(), storage.getAll().length);
-        assertArrayEquals(storage.getAll(), r);
+        assertArrayEquals(storage.getAll(), expected);
     }
 
     @Test
@@ -79,7 +79,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void saveCorrect() throws Exception {
         storage.save(newResume4);
-        assertEquals(storage.size(), 4);
+        assertEquals(4, storage.size());
         assertEquals(newResume4, storage.get(UUID_4));
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractArrayStorageTest {
             for (int i = 0; i < STORAGE_LIMIT; i++) {
                 storage.save(new Resume(UUID.randomUUID().toString()));
             }
-        } catch (Exception e) {
+        } catch (StorageException se) {
             fail("Переполнение произошло раньше времени");
         }
         storage.save(newResume4);
@@ -104,7 +104,7 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void deleteExist() throws Exception {
         storage.delete(UUID_1);
-        assertEquals(storage.size(), 2);
+        assertEquals(2, storage.size());
         storage.get(UUID_1);
     }
 
