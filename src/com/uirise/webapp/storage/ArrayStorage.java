@@ -2,8 +2,6 @@ package com.uirise.webapp.storage;
 
 import com.uirise.webapp.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */

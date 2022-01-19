@@ -1,7 +1,5 @@
 package com.uirise.webapp.storage;
 
-import com.uirise.webapp.exception.ExistStorageException;
-import com.uirise.webapp.exception.NotExistStorageException;
 import com.uirise.webapp.exception.StorageException;
 import com.uirise.webapp.model.Resume;
 
