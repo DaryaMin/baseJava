@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected int size = 0;
@@ -28,7 +28,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     @Override
-    public void save(Resume r, int index) {
+    public void saveByIndex(Resume r, int index) {
         if (size < storage.length) {
             addInStorage(r, index);
             size++;
@@ -39,17 +39,17 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     @Override
-    protected void update(Resume resume, int index) {
+    protected void updateByIndex(Resume resume, int index) {
         storage[index] = resume;
     }
 
     @Override
-    protected Resume get(int index) {
+    protected Resume getByIndex(int index) {
         return storage[index];
     }
 
     @Override
-    protected void delete(int index) {
+    protected void deleteByIndex(int index) {
         removeFromStorage(index);
         storage[size] = null;
         size--;

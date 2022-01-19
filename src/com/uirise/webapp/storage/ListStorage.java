@@ -2,22 +2,36 @@ package com.uirise.webapp.storage;
 
 import com.uirise.webapp.model.Resume;
 
-import java.awt.*;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class ListStorage extends AbstractStorage implements Storage {
-    ArrayList<Resume> storage = new ArrayList<>();
+    private  Collection<Resume> storage = new ArrayList<>();
 
     @Override
-    protected Resume get(int index) {
-        return storage.get(index);
+    protected Resume getByIndex(int index) {
+        Iterator<Resume> iterator = storage.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Resume resume = iterator.next();
+            if (i == index) {
+                return resume;
+            }
+            i++;
+        }
+        return null;
     }
 
     @Override
-    protected void delete(int index) {
-        storage.remove(index);
+    protected void deleteByIndex(int index) {
+        Iterator<Resume> iterator = storage.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            iterator.next();
+            if (i == index) {
+                iterator.remove();
+            }
+            i++;
+        }
     }
 
     @Override
@@ -26,23 +40,32 @@ public class ListStorage extends AbstractStorage implements Storage {
     }
 
     @Override
-    protected void save(Resume r, int index) {
+    protected void saveByIndex(Resume r, int index) {
         storage.add(r);
     }
 
     @Override
     protected int getIndex(String uuid) {
-        return storage.indexOf(new Resume(uuid));
+        Iterator<Resume> iterator = storage.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Resume resume = iterator.next();
+            if (Objects.equals(resume.getUuid(), uuid)) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 
     @Override
-    protected void update(Resume resume, int index) {
+    protected void updateByIndex(Resume resume, int index) {
         storage.add(resume);
     }
 
     @Override
     public void clear() {
-        storage.removeAll(storage);
+        storage.clear();
     }
 
     @Override

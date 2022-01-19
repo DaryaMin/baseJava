@@ -12,13 +12,6 @@ import static org.junit.Assert.*;
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
 
     private Storage storage;
-    private static final String UUID_1 = "uuid1";
-
-    private static final Resume RESUME_1;
-
-    static {
-        RESUME_1 = new Resume(UUID_1);
-    }
 
     public AbstractArrayStorageTest(Storage storage) {
         super(storage);
@@ -35,6 +28,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
         } catch (StorageException se) {
             fail("Переполнение произошло раньше времени");
         }
-        storage.save(RESUME_1);
+        storage.save(new Resume("uuid1"));
     }
 }

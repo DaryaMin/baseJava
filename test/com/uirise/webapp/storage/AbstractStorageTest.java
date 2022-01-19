@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AbstractStorageTest {
+public abstract class AbstractStorageTest {
     private Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -59,7 +59,7 @@ public class AbstractStorageTest {
     public void getAll() throws Exception {
         Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
         assertEquals(storage.size(), storage.getAll().length);
-        assertArrayEquals(storage.getAll(), expected);
+        assertArrayEquals(expected, storage.getAll());
     }
 
     @Test
@@ -91,24 +91,11 @@ public class AbstractStorageTest {
         storage.save(RESUME_1);
     }
 
-//    @Test(expected = StorageException.class)
-//    public void saveOverflow() throws Exception {
-//        storage.clear();
-//        try {
-//            for (int i = 0; i < STORAGE_LIMIT; i++) {
-//                storage.save(new Resume(UUID.randomUUID().toString()));
-//            }
-//        } catch (StorageException se) {
-//            fail("Переполнение произошло раньше времени");
-//        }
-//        storage.save(RESUME_4);
-//    }
-
     @Test(expected = NotExistStorageException.class)
     public void deleteExist() throws Exception {
-        storage.delete(UUID_1);
+        storage.delete(UUID_2);
         assertEquals(2, storage.size());
-        storage.get(UUID_1);
+        storage.get(UUID_2);
     }
 
     @Test(expected = NotExistStorageException.class)
