@@ -5,33 +5,16 @@ import com.uirise.webapp.model.Resume;
 import java.util.*;
 
 public class ListStorage extends AbstractStorage implements Storage {
-    private  Collection<Resume> storage = new ArrayList<>();
+    private  List<Resume> storage = new ArrayList<>();
 
     @Override
     protected Resume getByIndex(int index) {
-        Iterator<Resume> iterator = storage.iterator();
-        int i = 0;
-        while (iterator.hasNext()) {
-            Resume resume = iterator.next();
-            if (i == index) {
-                return resume;
-            }
-            i++;
-        }
-        return null;
+        return storage.get(index);
     }
 
     @Override
     protected void deleteByIndex(int index) {
-        Iterator<Resume> iterator = storage.iterator();
-        int i = 0;
-        while (iterator.hasNext()) {
-            iterator.next();
-            if (i == index) {
-                iterator.remove();
-            }
-            i++;
-        }
+        storage.remove(index);
     }
 
     @Override
@@ -46,16 +29,7 @@ public class ListStorage extends AbstractStorage implements Storage {
 
     @Override
     protected int getIndex(String uuid) {
-        Iterator<Resume> iterator = storage.iterator();
-        int i = 0;
-        while (iterator.hasNext()) {
-            Resume resume = iterator.next();
-            if (Objects.equals(resume.getUuid(), uuid)) {
-                return i;
-            }
-            i++;
-        }
-        return -1;
+        return storage.indexOf(new Resume(uuid));
     }
 
     @Override

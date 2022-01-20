@@ -11,8 +11,6 @@ import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
 
-    private Storage storage;
-
     public AbstractArrayStorageTest(Storage storage) {
         super(storage);
         this.storage = storage;
