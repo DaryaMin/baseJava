@@ -29,7 +29,14 @@ public class ListStorage extends AbstractStorage implements Storage {
 
     @Override
     protected int getIndex(String uuid) {
-        return storage.indexOf(new Resume(uuid));
+        int index = -1;
+        for (Resume r : storage) {
+            index++;
+            if (Objects.equals(r.getUuid(), uuid)) {
+                return index;
+            }
+        }
+        return index;
     }
 
     @Override
