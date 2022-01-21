@@ -13,7 +13,7 @@ public class ListStorage extends AbstractStorage implements Storage {
     }
 
     @Override
-    protected void deleteByIndex(int index) {
+    protected void deleteByIndex(int index, String uuid) {
         storage.remove(index);
     }
 
@@ -36,7 +36,7 @@ public class ListStorage extends AbstractStorage implements Storage {
                 return index;
             }
         }
-        return index;
+        return -1;
     }
 
     @Override

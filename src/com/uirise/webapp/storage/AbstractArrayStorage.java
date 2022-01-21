@@ -49,7 +49,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteByIndex(int index) {
+    protected void deleteByIndex(int index, String uuid) {
         removeFromStorage(index);
         storage[size] = null;
         size--;
