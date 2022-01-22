@@ -8,39 +8,45 @@ public class ListStorage extends AbstractStorage implements Storage {
     private  List<Resume> storage = new ArrayList<>();
 
     @Override
-    protected Resume getByIndex(int index) {
-        return storage.get(index);
+    protected Resume doGet(String uuid) {
+        return storage.get(getIndex(uuid));
     }
 
     @Override
-    protected void deleteByIndex(int index, String uuid) {
-        storage.remove(index);
+    protected void doDelete(String uuid) {
+        storage.remove(getIndex(uuid).intValue());
+        System.out.println(storage.size());
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[storage.size()]);
+    public List<Resume> doGetAll() {
+        return new ArrayList<>(storage);
     }
 
     @Override
-    protected void saveByIndex(Resume r, int index) {
+    protected void doSave(Resume r) {
         storage.add(r);
     }
 
+//    @Override
+//    protected int getIndex(String uuid) {
+//        int index = -1;
+//        for (Resume r : storage) {
+//            index++;
+//            if (Objects.equals(r.getUuid(), uuid)) {
+//                return index;
+//            }
+//        }
+//        return -1;
+//    }
+
     @Override
-    protected int getIndex(String uuid) {
-        int index = -1;
-        for (Resume r : storage) {
-            index++;
-            if (Objects.equals(r.getUuid(), uuid)) {
-                return index;
-            }
-        }
-        return -1;
+    protected boolean isExist(Object searchKey) {
+        return getIndex(searchKey.toString()) != null;
     }
 
     @Override
-    protected void updateByIndex(Resume resume, int index) {
+    protected void doUpdate(Resume resume, Object searchKey) {
         storage.add(resume);
     }
 
@@ -52,5 +58,14 @@ public class ListStorage extends AbstractStorage implements Storage {
     @Override
     public int size() {
         return storage.size();
+    }
+
+    protected Integer getIndex(String uuid) {
+        for (int i = 0; i < storage.size(); i++) {
+            if (storage.get(i).getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return null;
     }
 }

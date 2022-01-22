@@ -50,7 +50,7 @@ public class MainTestSortedArrayStorage {
 
     static void printAll() {
         System.out.println("Get All");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
+        for (Resume r : ARRAY_STORAGE.getAllSorted()) {
             System.out.println(r);
         }
         System.out.println("\n");
