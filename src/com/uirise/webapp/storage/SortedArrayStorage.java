@@ -3,6 +3,7 @@ package com.uirise.webapp.storage;
 import com.uirise.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
@@ -20,7 +21,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected int getIndex(String uuid) {
-        Resume searchKey = new Resume(uuid);
+        Resume searchKey = new Resume(uuid, null);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }

@@ -6,6 +6,9 @@ import com.uirise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
@@ -21,10 +24,10 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
-        RESUME_4 = new Resume(UUID_4);
+        RESUME_1 = new Resume(UUID_1, "Ivanov");
+        RESUME_2 = new Resume(UUID_2, "Petrov");
+        RESUME_3 = new Resume(UUID_3, "Sidorov");
+        RESUME_4 = new Resume(UUID_4, "dfsss4");
     }
 
     public AbstractStorageTest(Storage storage) {
@@ -35,9 +38,9 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() throws Exception {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(new Resume((UUID_1), "Ivanov"));
+        storage.save(new Resume((UUID_2), "Petrov"));
+        storage.save(new Resume((UUID_3), "Sidorov"));
     }
 
     @Test
@@ -57,9 +60,12 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        assertEquals(storage.size(), storage.getAll().length);
-        assertArrayEquals(expected, storage.getAll());
+        List<Resume> expected = new ArrayList<>();
+        expected.add(RESUME_1);
+        expected.add(RESUME_2);
+        expected.add(RESUME_3);
+        assertEquals(expected.size(), storage.getAllSorted().size());
+        assertEquals(expected, storage.getAllSorted());
     }
 
     @Test

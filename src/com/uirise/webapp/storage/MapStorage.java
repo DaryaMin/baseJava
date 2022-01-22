@@ -3,46 +3,47 @@ package com.uirise.webapp.storage;
 import com.uirise.webapp.model.Resume;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toCollection;
 
 public class MapStorage extends AbstractStorage {
-    private Map<String, Resume> storage = new HashMap<>();
+    private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected void updateByIndex(Resume resume, int index) {
-        storage.replace(resume.getUuid(), resume);
+    protected boolean isExist(Object searchKey) {
+        return storage.containsKey(searchKey.toString());
     }
 
     @Override
-    protected void saveByIndex(Resume r, int index) {
+    protected void doUpdate(Resume resume, Object searchKey) {
+        storage.replace(searchKey.toString(), resume);
+    }
+
+    @Override
+    protected void doSave(Resume r) {
         storage.put(r.getUuid(), r);
     }
 
+
+//    protected Integer getIndex(String uuid) {
+//        int index = -1;
+//        for (Object key : storage.keySet()) {
+//            index++;
+//            if (key.equals(uuid)) {
+//                return index;
+//            }
+//        }
+//        return null;
+//    }
+
     @Override
-    protected int getIndex(String uuid) {
-        int index = -1;
-        for (Object key : storage.keySet()) {
-            index++;
-            if (key.equals(uuid)) {
-                return index;
-            }
-        }
-        return -1;
+    protected Resume doGet(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
-    protected Resume getByIndex(int index) {
-        int i = 0;
-        for (Object key : storage.keySet()) {
-            if (i == index) {
-                return storage.get(key);
-            }
-            i++;
-        }
-        return null;
-    }
-
-    @Override
-    protected void deleteByIndex(int index, String uuid) {
+    protected void doDelete(String uuid) {
         storage.remove(uuid);
     }
 
@@ -52,8 +53,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return Arrays.stream(storage.values().toArray(new Resume[storage.size()])).sorted().toArray(Resume[]::new);
+    public List<Resume> doGetAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
