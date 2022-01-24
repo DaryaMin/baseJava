@@ -3,9 +3,7 @@ package com.uirise.webapp.storage;
 import com.uirise.webapp.exception.StorageException;
 import com.uirise.webapp.model.Resume;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,9 +29,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void doSave(Resume r) {
+    public void doSave(Resume r, Object searchKey) {
         if (size < storage.length) {
-            addInStorage(r, getIndex(r.getUuid()));
+            addInStorage(r, (Integer) searchKey);
             size++;
             System.out.println("INFO: Resume with uuid = " + r + " saved successful");
         } else {
@@ -41,21 +39,19 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    protected abstract int getIndex(String uuid);
-
     @Override
     protected void doUpdate(Resume resume, Object searchKey) {
-        storage[getIndex(searchKey.toString())] = resume;
+        storage[(int) searchKey] = resume;
     }
 
     @Override
-    protected Resume doGet(String uuid) {
-        return storage[getIndex(uuid)];
+    protected Resume doGet(Object searchKey) {
+        return storage[(int) searchKey];
     }
 
     @Override
-    protected void doDelete(String uuid) {
-        removeFromStorage(getIndex(uuid));
+    protected void doDelete(Object searchKey) {
+        removeFromStorage((Integer) searchKey);
         storage[size] = null;
         size--;
     }
@@ -67,7 +63,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return getIndex(searchKey.toString()) >= 0;
+        return (int) searchKey >= 0;
     }
 
     protected abstract void removeFromStorage(int index);

@@ -3,12 +3,14 @@ package com.uirise.webapp.storage;
 import com.uirise.webapp.model.Resume;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toCollection;
 
 public class MapStorage extends AbstractStorage {
     private final Map<String, Resume> storage = new HashMap<>();
+
+    @Override
+    protected Object getSearchKey(String uuid) {
+        return uuid;
+    }
 
     @Override
     protected boolean isExist(Object searchKey) {
@@ -21,30 +23,18 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doSave(Resume r) {
-        storage.put(r.getUuid(), r);
-    }
-
-
-//    protected Integer getIndex(String uuid) {
-//        int index = -1;
-//        for (Object key : storage.keySet()) {
-//            index++;
-//            if (key.equals(uuid)) {
-//                return index;
-//            }
-//        }
-//        return null;
-//    }
-
-    @Override
-    protected Resume doGet(String uuid) {
-        return storage.get(uuid);
+    protected void doSave(Resume r, Object searchKey) {
+        storage.put(searchKey.toString(), r);
     }
 
     @Override
-    protected void doDelete(String uuid) {
-        storage.remove(uuid);
+    protected Resume doGet(Object searchKey) {
+        return storage.get(searchKey.toString());
+    }
+
+    @Override
+    protected void doDelete(Object searchKey) {
+        storage.remove(searchKey.toString());
     }
 
     @Override

@@ -8,14 +8,13 @@ public class ListStorage extends AbstractStorage implements Storage {
     private  List<Resume> storage = new ArrayList<>();
 
     @Override
-    protected Resume doGet(String uuid) {
-        return storage.get(getIndex(uuid));
+    protected Resume doGet(Object searchKey) {
+        return storage.get((Integer) searchKey);
     }
 
     @Override
-    protected void doDelete(String uuid) {
-        storage.remove(getIndex(uuid).intValue());
-        System.out.println(storage.size());
+    protected void doDelete(Object searchKey) {
+        storage.remove((int) searchKey);
     }
 
     @Override
@@ -24,25 +23,13 @@ public class ListStorage extends AbstractStorage implements Storage {
     }
 
     @Override
-    protected void doSave(Resume r) {
+    protected void doSave(Resume r, Object searchKey) {
         storage.add(r);
     }
 
-//    @Override
-//    protected int getIndex(String uuid) {
-//        int index = -1;
-//        for (Resume r : storage) {
-//            index++;
-//            if (Objects.equals(r.getUuid(), uuid)) {
-//                return index;
-//            }
-//        }
-//        return -1;
-//    }
-
     @Override
     protected boolean isExist(Object searchKey) {
-        return getIndex(searchKey.toString()) != null;
+        return searchKey != null;
     }
 
     @Override
@@ -60,7 +47,8 @@ public class ListStorage extends AbstractStorage implements Storage {
         return storage.size();
     }
 
-    protected Integer getIndex(String uuid) {
+    @Override
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
