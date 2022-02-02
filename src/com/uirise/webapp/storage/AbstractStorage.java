@@ -60,7 +60,7 @@ public abstract class AbstractStorage implements Storage {
     public List<Resume> getAllSorted() {
         Comparator<Resume> resumeComparator = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
         List<Resume> list = doGetAll();
-        Collections.sort(list, resumeComparator);
+        list.sort(resumeComparator);
 
         return list;
     }
