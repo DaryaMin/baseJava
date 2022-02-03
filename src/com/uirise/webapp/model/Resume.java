@@ -1,6 +1,7 @@
 package com.uirise.webapp.model;
 
-import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -12,11 +13,15 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
+    private final Map<ContactType, String> contacts = new HashMap<>();
+    private final Map<SectionType, AbstractSection> sections = new HashMap<>();
+
     public Resume() {
-        this.uuid=UUID.randomUUID().toString();
+        this.uuid = UUID.randomUUID().toString();
     }
+
     public Resume(String uuid) {
-        this.uuid=uuid;
+        this.uuid = uuid;
     }
 
     public Resume(String uuid, String fullName) {
@@ -30,6 +35,22 @@ public class Resume implements Comparable<Resume> {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+    public void setContact(ContactType type, String details) {
+        contacts.put(type, details);
+    }
+
+    public AbstractSection getSection(SectionType type) {
+        return sections.get(type);
+    }
+
+    public void setSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
     }
 
     @Override
@@ -49,7 +70,15 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return uuid;
+        StringBuilder resumeToString = new StringBuilder();
+        for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+            resumeToString.append(entry.getKey().getTitle()).append(": ").append(entry.getValue()).append("\r\n");
+        }
+
+        for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+            resumeToString.append(entry.getKey().getTitle()).append(":\r\n").append(entry.getValue().toString()).append("\r\n");
+        }
+        return "UUID: " + uuid +"\r\n" + "ФИО: " + fullName + "\r\n" + resumeToString;
     }
 
     @Override
