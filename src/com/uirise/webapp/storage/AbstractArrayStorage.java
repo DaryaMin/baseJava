@@ -63,6 +63,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
+        System.out.println(searchKey);
         return (int) searchKey >= 0;
     }
 

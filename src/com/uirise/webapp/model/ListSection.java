@@ -1,10 +1,10 @@
 package com.uirise.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ListSection extends AbstractSection {
-    List<String> list;
+    private final List<String> list;
 
     public ListSection(List<String> list) {
         this.list = list;
@@ -21,11 +21,14 @@ public class ListSection extends AbstractSection {
 
     @Override
     public boolean equals(Object o) {
-        return list.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListSection that = (ListSection) o;
+        return list.equals(that.list);
     }
 
     @Override
     public int hashCode() {
-        return list.hashCode();
+        return Objects.hash(list);
     }
 }

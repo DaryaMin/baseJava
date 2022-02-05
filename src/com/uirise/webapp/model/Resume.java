@@ -1,8 +1,6 @@
 package com.uirise.webapp.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Initial resume class
@@ -13,15 +11,11 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    private final Map<ContactType, String> contacts = new HashMap<>();
-    private final Map<SectionType, AbstractSection> sections = new HashMap<>();
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
-    public Resume() {
-        this.uuid = UUID.randomUUID().toString();
-    }
-
-    public Resume(String uuid) {
-        this.uuid = uuid;
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
     public Resume(String uuid, String fullName) {
@@ -64,11 +58,6 @@ public class Resume implements Comparable<Resume> {
     }
 
     @Override
-    public int hashCode() {
-        return uuid.hashCode();
-    }
-
-    @Override
     public String toString() {
         StringBuilder resumeToString = new StringBuilder();
         for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
@@ -84,5 +73,10 @@ public class Resume implements Comparable<Resume> {
     @Override
     public int compareTo(Resume o) {
         return uuid.compareTo(o.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 }
