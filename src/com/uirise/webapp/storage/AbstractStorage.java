@@ -4,55 +4,56 @@ import com.uirise.webapp.exception.ExistStorageException;
 import com.uirise.webapp.exception.NotExistStorageException;
 import com.uirise.webapp.model.Resume;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class AbstractStorage implements Storage {
-    protected abstract Object getSearchKey(String uuid);
+public abstract class AbstractStorage<SK> implements Storage {
+    protected abstract SK getSearchKey(String uuid);
 
     public void update(Resume resume) {
-        Object searchKey = notExistCheck(resume.getUuid());
+        SK searchKey = notExistCheck(resume.getUuid());
         doUpdate(resume, searchKey);
         System.out.println("INFO: Resume with uuid = " + resume + " update successful");
     }
 
-    private Object notExistCheck(String uuid) {
-        Object searchKey = getSearchKey(uuid);
+    private SK notExistCheck(String uuid) {
+        SK searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
         return searchKey;
     }
 
-    private Object existCheck(String uuid) {
-        Object searchKey = getSearchKey(uuid);
+    private SK existCheck(String uuid) {
+        SK searchKey = getSearchKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
         }
         return searchKey;
     }
 
-    protected abstract boolean isExist(Object searchKey);
+    protected abstract boolean isExist(SK searchKey);
 
-    protected abstract void doUpdate(Resume resume, Object searchKey);
+    protected abstract void doUpdate(Resume resume, SK searchKey);
 
     public void save(Resume resume) {
-        Object searchKey = existCheck(resume.getUuid());
+        SK searchKey = existCheck(resume.getUuid());
         doSave(resume, searchKey);
     }
 
-    protected abstract void doSave(Resume r, Object searchKey);
+    protected abstract void doSave(Resume r, SK searchKey);
 
     public Resume get(String uuid) {
-        Object searchKey = notExistCheck(uuid);
+        SK searchKey = notExistCheck(uuid);
         return doGet(searchKey);
     }
 
-    protected abstract Resume doGet(Object searchKey);
+    protected abstract Resume doGet(SK searchKey);
 
     public void delete(String uuid) {
-        Object searchKey = notExistCheck(uuid);
+        SK searchKey = notExistCheck(uuid);
         doDelete(searchKey);
         System.out.println("INFO: Resume with uuid = " + uuid + " delete successful");
     }
@@ -67,5 +68,5 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract List<Resume> doGetAll();
 
-    protected abstract void doDelete(Object searchKey);
+    protected abstract void doDelete(SK searchKey);
 }
