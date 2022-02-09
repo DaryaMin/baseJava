@@ -4,18 +4,30 @@ import com.uirise.webapp.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.uirise.webapp.model.ContactType.*;
 import static com.uirise.webapp.model.SectionType.*;
 
 public class ResumeTestData {
-    static Resume resume = new Resume("UUID1", "Иванов Иван Иванович");
 
     public static void main(String[] args) {
-        resume.setContact(ADRESS, "ffff");
+        Resume resume = createTestResume("UUID1", "Ivanov");
+        System.out.println(resume.getContact(ADRESS));
+        System.out.println(resume.getSection(PERSONAL));
+        System.out.println(resume.getSection(OBJECTIVE));
+        System.out.println(resume.getSection(ACHIEVEMENT));
+        System.out.println(resume.getSection(QUALIFICATIONS));
+        System.out.println(resume.getSection(EXPERIENCE));
+        System.out.println(resume.getSection(EDUCATION));
+        System.out.println();
+        System.out.println(resume);
+    }
+
+    public static Resume createTestResume(String uuid, String fullName){
+        Resume resume = new Resume(uuid, fullName);
+
+        resume.setContact(ADRESS, "Москва");
         resume.setSection(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         resume.setSection(PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
 
@@ -66,17 +78,7 @@ public class ResumeTestData {
 
         resume.setSection(EDUCATION, new OrganizationSection(education));
 
-
-        System.out.println(resume.getContact(ADRESS));
-        System.out.println(resume.getSection(PERSONAL));
-        System.out.println(resume.getSection(OBJECTIVE));
-        System.out.println(resume.getSection(ACHIEVEMENT));
-        System.out.println(resume.getSection(QUALIFICATIONS));
-        System.out.println(resume.getSection(EXPERIENCE));
-        System.out.println(resume.getSection(EDUCATION));
-        System.out.println();
-        System.out.println(resume);
-
-    }
+        return resume;
+        }
 
 }

@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.uirise.webapp.ResumeTestData.createTestResume;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
@@ -24,10 +25,10 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1, "Ivanov");
-        RESUME_2 = new Resume(UUID_2, "Petrov");
-        RESUME_3 = new Resume(UUID_3, "Sidorov");
-        RESUME_4 = new Resume(UUID_4, "dfsss4");
+        RESUME_1 = createTestResume(UUID_1, "Ivanov");
+        RESUME_2 = createTestResume(UUID_2, "Petrov");
+        RESUME_3 = createTestResume(UUID_3, "Sidorov");
+        RESUME_4 = createTestResume(UUID_4, "dfsss4");
     }
 
     public AbstractStorageTest(Storage storage) {
@@ -38,9 +39,9 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() throws Exception {
         storage.clear();
-        storage.save(new Resume((UUID_1), "Ivanov"));
-        storage.save(new Resume((UUID_2), "Petrov"));
-        storage.save(new Resume((UUID_3), "Sidorov"));
+        storage.save(createTestResume((UUID_1), "Ivanov"));
+        storage.save(createTestResume((UUID_2), "Petrov"));
+        storage.save(createTestResume((UUID_3), "Sidorov"));
     }
 
     @Test
