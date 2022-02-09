@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class MainFile {
     public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class MainFile {
             throw new RuntimeException("Error", e);
         }
 
-        File dir = new File("C:\\D\\QA\\java\\basejava");
+        File dir = new File(".");
         System.out.println(dir.isDirectory());
         String[] list = dir.list();
         if (list != null) {
