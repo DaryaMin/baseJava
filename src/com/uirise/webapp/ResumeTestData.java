@@ -45,14 +45,24 @@ public class ResumeTestData {
                 "Родной русский, английский \"upper intermediate\""));
 
         List<OrganizationDetails> experience = new ArrayList<>();
-        experience.add(new OrganizationDetails("Java Online Projects", LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        experience.add(new OrganizationDetails("Wrike", LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        List<OrganizationDetails.PositionDetails> javaPositionDetailsList = new ArrayList<>();
+        javaPositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experience.add(new OrganizationDetails("Java Online Projects", javaPositionDetailsList));
+
+        List<OrganizationDetails.PositionDetails> wrikePositionDetailsList = new ArrayList<>();
+        wrikePositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experience.add(new OrganizationDetails("Wrike", wrikePositionDetailsList));
 
         resume.setSection(EXPERIENCE, new OrganizationSection(experience));
 
         List<OrganizationDetails> education = new ArrayList<>();
-        education.add(new OrganizationDetails("Coursera", LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "","Functional Programming Principles in Scala by Martin Odersky"));
-        education.add(new OrganizationDetails("Luxoft", LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "" ,"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML."));
+        List<OrganizationDetails.PositionDetails> courseraPositionDetailsList = new ArrayList<>();
+        courseraPositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "","Functional Programming Principles in Scala by Martin Odersky"));
+        education.add(new OrganizationDetails("Coursera", courseraPositionDetailsList));
+
+        List<OrganizationDetails.PositionDetails> luxsoftPositionDetailsList = new ArrayList<>();
+        luxsoftPositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "" ,"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML."));
+        education.add(new OrganizationDetails("Luxoft",luxsoftPositionDetailsList));
 
         resume.setSection(EDUCATION, new OrganizationSection(education));
 
