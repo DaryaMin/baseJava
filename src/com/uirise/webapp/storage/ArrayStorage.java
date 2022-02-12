@@ -8,12 +8,12 @@ import com.uirise.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void addInStorage(Resume r, int index) {
+    public void addInArray(Resume r, int index) {
         storage[size] = r;
     }
 
     @Override
-    public void removeFromStorage(int index) {
+    public void removeFromArray(int index) {
         storage[index] = storage[size - 1];
     }
 

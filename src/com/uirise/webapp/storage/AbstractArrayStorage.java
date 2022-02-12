@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected int size = 0;
@@ -29,46 +29,44 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void doSave(Resume r, Object searchKey) {
-        if (size < storage.length) {
-            addInStorage(r, (Integer) searchKey);
-            size++;
-            System.out.println("INFO: Resume with uuid = " + r + " saved successful");
-        } else {
+    public void doSave(Resume r, Integer searchKey) {
+        if (size >= storage.length) {
             throw new StorageException("Storage overflow", r.getUuid());
         }
+        addInArray(r, searchKey);
+        size++;
+        System.out.println("INFO: Resume with uuid = " + r + " saved successful");
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object searchKey) {
-        storage[(int) searchKey] = resume;
+    protected void doUpdate(Resume resume, Integer searchKey) {
+        storage[searchKey] = resume;
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
+    protected Resume doGet(Integer searchKey) {
         return storage[(int) searchKey];
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        removeFromStorage((Integer) searchKey);
+    protected void doDelete(Integer searchKey) {
+        removeFromArray(searchKey);
         storage[size] = null;
         size--;
     }
 
     @Override
     public List<Resume> doGetAll() {
-        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        System.out.println(searchKey);
-        return (int) searchKey >= 0;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey >= 0;
     }
 
-    protected abstract void removeFromStorage(int index);
+    protected abstract void removeFromArray(int index);
 
-    protected abstract void addInStorage(Resume r, int index);
+    protected abstract void addInArray(Resume r, int index);
 
 }

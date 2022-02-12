@@ -33,17 +33,17 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        printFileNames(".\\src");
+        File[] files = new File(".\\src").listFiles();
+        printFileNames(Objects.requireNonNull(files));
     }
 
-    public static void printFileNames(String sDir){
-        File[] files = new File(sDir).listFiles();
-        for(File file: files){
-            if(file != null){
+    public static void printFileNames(File[] files) {
+        for (File file : files) {
+            if (file != null) {
                 System.out.println(file.getName());
-            }
-            if(file.isDirectory()){
-                printFileNames(file.getAbsolutePath());
+                if (file.isDirectory()) {
+                    printFileNames(Objects.requireNonNull(file.listFiles()));
+                }
             }
         }
     }
