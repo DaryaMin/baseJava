@@ -11,7 +11,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     protected abstract SK getSearchKey(String uuid);
 
     public void update(Resume resume) {
-        SK searchKey = getSearchKeyIfNotExist(resume.getUuid());
+        SK searchKey = getSearchKeyIfExist(resume.getUuid());
         doUpdate(resume, searchKey);
         System.out.println("INFO: Resume with uuid = " + resume + " update successful");
     }
@@ -21,21 +21,21 @@ public abstract class AbstractStorage<SK> implements Storage {
     protected abstract void doUpdate(Resume resume, SK searchKey);
 
     public void save(Resume resume) {
-        SK searchKey = getSearchKeyIfExist(resume.getUuid());
+        SK searchKey = getSearchKeyIfNotExist(resume.getUuid());
         doSave(resume, searchKey);
     }
 
     protected abstract void doSave(Resume r, SK searchKey);
 
     public Resume get(String uuid) {
-        SK searchKey = getSearchKeyIfNotExist(uuid);
+        SK searchKey = getSearchKeyIfExist(uuid);
         return doGet(searchKey);
     }
 
     protected abstract Resume doGet(SK searchKey);
 
     public void delete(String uuid) {
-        SK searchKey = getSearchKeyIfNotExist(uuid);
+        SK searchKey = getSearchKeyIfExist(uuid);
         doDelete(searchKey);
         System.out.println("INFO: Resume with uuid = " + uuid + " delete successful");
     }
@@ -52,7 +52,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract void doDelete(SK searchKey);
 
-    private SK getSearchKeyIfNotExist(String uuid) {
+    private SK getSearchKeyIfExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
@@ -60,7 +60,7 @@ public abstract class AbstractStorage<SK> implements Storage {
         return searchKey;
     }
 
-    private SK getSearchKeyIfExist(String uuid) {
+    private SK getSearchKeyIfNotExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
