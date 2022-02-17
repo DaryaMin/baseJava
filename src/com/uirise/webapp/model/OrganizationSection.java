@@ -3,15 +3,15 @@ package com.uirise.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganizationSection extends AbstractSection {
-    private final List<OrganizationDetails> organizations;
+public class OrganizationSection extends Section {
+    private final List<Organization> organizations;
 
-    public OrganizationSection(List<OrganizationDetails> organizations) {
+    public OrganizationSection(List<Organization> organizations) {
         Objects.requireNonNull(organizations, "organizations must not be null");
         this.organizations = organizations;
     }
 
-    public List<OrganizationDetails> getOrganizations() {
+    public List<Organization> getOrganizations() {
         return organizations;
     }
 
@@ -34,7 +34,7 @@ public class OrganizationSection extends AbstractSection {
     @Override
     public String toString() {
         String listToString = "";
-        for (OrganizationDetails detail:organizations) {
+        for (Organization detail:organizations) {
             listToString = listToString + detail.toString() + "\r\n";
         }
         return listToString;

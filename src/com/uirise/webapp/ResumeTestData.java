@@ -13,7 +13,7 @@ public class ResumeTestData {
 
     public static void main(String[] args) {
         Resume resume = createTestResume("UUID1", "Ivanov");
-        System.out.println(resume.getContact(ADRESS));
+        System.out.println(resume.getContact(PHONE));
         System.out.println(resume.getSection(PERSONAL));
         System.out.println(resume.getSection(OBJECTIVE));
         System.out.println(resume.getSection(ACHIEVEMENT));
@@ -27,7 +27,7 @@ public class ResumeTestData {
     public static Resume createTestResume(String uuid, String fullName){
         Resume resume = new Resume(uuid, fullName);
 
-        resume.setContact(ADRESS, "Москва");
+        resume.setContact(PHONE, "89521233");
         resume.setSection(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         resume.setSection(PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
 
@@ -56,25 +56,25 @@ public class ResumeTestData {
                 "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования\n" +
                 "Родной русский, английский \"upper intermediate\""));
 
-        List<OrganizationDetails> experience = new ArrayList<>();
-        List<OrganizationDetails.PositionDetails> javaPositionDetailsList = new ArrayList<>();
-        javaPositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        experience.add(new OrganizationDetails("Java Online Projects", javaPositionDetailsList));
+        List<Organization> experience = new ArrayList<>();
+        List<Organization.Position> javaPositionDetailsList = new ArrayList<>();
+        javaPositionDetailsList.add(new Organization.Position(LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experience.add(new Organization(new Link("Java Online Projects", "http://java.ru"), javaPositionDetailsList));
 
-        List<OrganizationDetails.PositionDetails> wrikePositionDetailsList = new ArrayList<>();
-        wrikePositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-        experience.add(new OrganizationDetails("Wrike", wrikePositionDetailsList));
+        List<Organization.Position> wrikePositionDetailsList = new ArrayList<>();
+        wrikePositionDetailsList.add(new Organization.Position(LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experience.add(new Organization(new Link("Wrike", "http://wrike.ru"), wrikePositionDetailsList));
 
         resume.setSection(EXPERIENCE, new OrganizationSection(experience));
 
-        List<OrganizationDetails> education = new ArrayList<>();
-        List<OrganizationDetails.PositionDetails> courseraPositionDetailsList = new ArrayList<>();
-        courseraPositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "","Functional Programming Principles in Scala by Martin Odersky"));
-        education.add(new OrganizationDetails("Coursera", courseraPositionDetailsList));
+        List<Organization> education = new ArrayList<>();
+        List<Organization.Position> courseraPositionDetailsList = new ArrayList<>();
+        courseraPositionDetailsList.add(new Organization.Position(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "","Functional Programming Principles in Scala by Martin Odersky"));
+        education.add(new Organization(new Link("Course", "http://course.com"), courseraPositionDetailsList));
 
-        List<OrganizationDetails.PositionDetails> luxsoftPositionDetailsList = new ArrayList<>();
-        luxsoftPositionDetailsList.add(new OrganizationDetails.PositionDetails(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "" ,"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML."));
-        education.add(new OrganizationDetails("Luxoft",luxsoftPositionDetailsList));
+        List<Organization.Position> luxsoftPositionDetailsList = new ArrayList<>();
+        luxsoftPositionDetailsList.add(new Organization.Position(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "" ,"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML."));
+        education.add(new Organization(new Link("Luxoft", "http://luxsoft.com"),luxsoftPositionDetailsList));
 
         resume.setSection(EDUCATION, new OrganizationSection(education));
 

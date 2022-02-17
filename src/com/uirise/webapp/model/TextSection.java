@@ -1,6 +1,6 @@
 package com.uirise.webapp.model;
 
-public class TextSection extends AbstractSection {
+public class TextSection extends Section {
     private final String content;
 
     public TextSection(String content) {

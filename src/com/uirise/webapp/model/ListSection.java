@@ -3,11 +3,16 @@ package com.uirise.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class ListSection extends AbstractSection {
+public class ListSection extends Section {
     private final List<String> list;
 
     public ListSection(List<String> list) {
+        Objects.requireNonNull(list, "items must not be null");
         this.list = list;
+    }
+
+    public List<String> getList() {
+        return list;
     }
 
     @Override
