@@ -14,7 +14,7 @@ import static com.uirise.webapp.ResumeTestData.createTestResume;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\projects\\storage");
+    protected static final File STORAGE_DIR = new File("storage");
 
     protected Storage storage;
     private static final String UUID_1 = "uuid1";
