@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 public class MainFile {
+    static String tab = "";
+
     public static void main(String[] args) {
         String filePath = ".\\.gitignore";
 
@@ -33,16 +35,20 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        File[] files = new File(".\\src").listFiles();
-        printFileNames(Objects.requireNonNull(files));
+        printFileNames(dir, "");
     }
 
-    public static void printFileNames(File[] files) {
-        for (File file : files) {
-            if (file != null) {
-                System.out.println(file.getName());
-                if (file.isDirectory()) {
-                    printFileNames(Objects.requireNonNull(file.listFiles()));
+    public static void printFileNames(File dir, String tab) {
+        File[] files = dir.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.println(tab + "File: " + file.getName());
+                } else if (file.isDirectory()) {
+                    System.out.println(tab + "Folder: " + file.getName());
+                    printFileNames(file, tab + "  ");
+
                 }
             }
         }
