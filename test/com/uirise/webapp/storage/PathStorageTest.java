@@ -1,6 +1,6 @@
-package com.uirise.webapp.storage.strategy;
+package com.uirise.webapp.storage;
 
-import com.uirise.webapp.storage.AbstractStorageTest;
+import com.uirise.webapp.storage.strategy.StreamStrategy;
 
 public class PathStorageTest extends AbstractStorageTest {
 
