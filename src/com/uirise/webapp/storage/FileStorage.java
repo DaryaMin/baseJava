@@ -2,7 +2,7 @@ package com.uirise.webapp.storage;
 
 import com.uirise.webapp.exception.StorageException;
 import com.uirise.webapp.model.Resume;
-import com.uirise.webapp.storage.strategy.StorageStrategy;
+import com.uirise.webapp.storage.strategy.StreamSerializer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.Objects;
 public class FileStorage extends AbstractStorage<File> {
     private File directory;
 
-    private StorageStrategy storageStrategy;
+    private StreamSerializer storageStrategy;
 
-    protected FileStorage(File directory, StorageStrategy storageStrategy) {
+    protected FileStorage(File directory, StreamSerializer storageStrategy) {
         Objects.requireNonNull(directory, "directory must not be null");
         this.storageStrategy = storageStrategy;
         if (!directory.isDirectory()) {

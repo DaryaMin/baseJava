@@ -3,7 +3,10 @@ package com.uirise.webapp.model;
 public class TextSection extends Section {
     private static final long serialVersionUID = 1L;
 
-    private final String content;
+    private String content;
+
+    public TextSection() {
+    }
 
     public TextSection(String content) {
         this.content = content;
