@@ -27,7 +27,6 @@ public class DataStreamSerializer implements StreamSerializer {
                 SectionType type = entry.getKey();
                 Section section = entry.getValue();
                 dos.writeUTF(type.name());
-                System.out.println(type.name());
                 switch (type) {
                     case PERSONAL:
                     case OBJECTIVE:
@@ -50,7 +49,6 @@ public class DataStreamSerializer implements StreamSerializer {
                             dos.writeUTF(item.getHomePage().getUrl());
                             dos.writeInt(item.getPositions().size());
                             for (Organization.Position position : item.getPositions()) {
-                                System.out.println(position.getStartDate());
                                 writeDate(dos, position.getStartDate());
                                 writeDate(dos, position.getEndDate());
                                 dos.writeUTF(position.getTitle());
@@ -69,28 +67,22 @@ public class DataStreamSerializer implements StreamSerializer {
         try (DataInputStream dis = new DataInputStream(is)) {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
-            System.out.println(uuid + fullName);
             Resume resume = new Resume(uuid, fullName);
             int contactSize = dis.readInt();
             for (int i = 0; i < contactSize; i++) {
                 resume.setContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
             }
-            System.out.println("end of contact");
             int sectionSize = dis.readInt();
-            System.out.println(sectionSize);
             for (int i = 0; i < sectionSize; i++) {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
                 switch (sectionType) {
                     case PERSONAL:
                     case OBJECTIVE:
                     case QUALIFICATIONS:
-                        System.out.println(sectionType);
                         resume.setSection(sectionType, new TextSection(dis.readUTF()));
-                        System.out.println(resume.getSection(sectionType).toString());
                         break;
                     case ACHIEVEMENT:
                         int sizeList = dis.readInt();
-                        System.out.println(sizeList);
                         List<String> list = new ArrayList<>(sizeList);
                         for (int j = 0; j < sizeList; j++) {
                             list.add(dis.readUTF());
@@ -99,7 +91,6 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        System.out.println(sectionType);
                         int sizeOrg = dis.readInt();
                         List<Organization> organizations = new ArrayList<>(sizeOrg);
                         for (int j = 0; j < sizeOrg; j++) {
@@ -128,9 +119,6 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private LocalDate readDate(DataInputStream dis) throws IOException {
-        int year = dis.readInt();
-        int month = dis.readInt();
-        System.out.println(year+month);
-        return LocalDate.of(year, month, 1);
+        return LocalDate.of(dis.readInt(), dis.readInt(), 1);
     }
 }
