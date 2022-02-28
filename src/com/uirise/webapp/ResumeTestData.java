@@ -3,6 +3,7 @@ package com.uirise.webapp;
 import com.uirise.webapp.model.*;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,22 +59,22 @@ public class ResumeTestData {
 
         List<Organization> experience = new ArrayList<>();
         List<Organization.Position> javaPositionDetailsList = new ArrayList<>();
-        javaPositionDetailsList.add(new Organization.Position(LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        javaPositionDetailsList.add(new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
         experience.add(new Organization(new Link("Java Online Projects", "http://java.ru"), javaPositionDetailsList));
 
         List<Organization.Position> wrikePositionDetailsList = new ArrayList<>();
-        wrikePositionDetailsList.add(new Organization.Position(LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        wrikePositionDetailsList.add(new Organization.Position(2003, Month.MARCH, 2005, Month.JANUARY, "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
         experience.add(new Organization(new Link("Wrike", "http://wrike.ru"), wrikePositionDetailsList));
 
         resume.setSection(EXPERIENCE, new OrganizationSection(experience));
 
         List<Organization> education = new ArrayList<>();
         List<Organization.Position> courseraPositionDetailsList = new ArrayList<>();
-        courseraPositionDetailsList.add(new Organization.Position(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "","Functional Programming Principles in Scala by Martin Odersky"));
+        courseraPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "","Functional Programming Principles in Scala by Martin Odersky"));
         education.add(new Organization(new Link("Course", "http://course.com"), courseraPositionDetailsList));
 
         List<Organization.Position> luxsoftPositionDetailsList = new ArrayList<>();
-        luxsoftPositionDetailsList.add(new Organization.Position(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "" ,"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML."));
+        luxsoftPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "" ,"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML."));
         education.add(new Organization(new Link("Luxoft", "http://luxsoft.com"),luxsoftPositionDetailsList));
 
         resume.setSection(EDUCATION, new OrganizationSection(education));
