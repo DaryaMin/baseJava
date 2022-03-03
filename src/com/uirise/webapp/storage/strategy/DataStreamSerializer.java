@@ -34,10 +34,10 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        int listSize = ((ListSection)section).getList().size();
-                        dos.writeInt(listSize);
-                        for (int i = 0; i < listSize; i++) {
-                            dos.writeUTF(((ListSection) section).getList().get(i));
+                        List<String> list = ((ListSection)section).getList();
+                        dos.writeInt(list.size());
+                        for (String detail: list) {
+                            dos.writeUTF(detail);
                         }
                         break;
                     case EXPERIENCE:
@@ -45,8 +45,9 @@ public class DataStreamSerializer implements StreamSerializer {
                         List<Organization> orgs = ((OrganizationSection) section).getOrganizations();
                         dos.writeInt(orgs.size());
                         for (Organization item : orgs) {
-                            dos.writeUTF(item.getHomePage().getName());
-                            dos.writeUTF(item.getHomePage().getUrl());
+                            Link link = item.getHomePage();
+                            dos.writeUTF(link.getName());
+                            dos.writeUTF(link.getUrl());
                             dos.writeInt(item.getPositions().size());
                             for (Organization.Position position : item.getPositions()) {
                                 writeDate(dos, position.getStartDate());
