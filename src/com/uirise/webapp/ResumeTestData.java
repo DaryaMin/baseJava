@@ -41,21 +41,12 @@ public class ResumeTestData {
         listAchievement.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
         resume.setSection(ACHIEVEMENT, new ListSection(listAchievement));
 
-        resume.setSection(QUALIFICATIONS, new TextSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2\n" +
-                "Version control: Subversion, Git, Mercury, ClearCase, Perforce\n" +
-                "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle,\n" +
-                "MySQL, SQLite, MS SQL, HSQLDB\n" +
-                "Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy,\n" +
-                "XML/XSD/XSLT, SQL, C/C++, Unix shell scripts,\n" +
-                "Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, MyBatis, Spring (MVC, Security, Data, Clouds, Boot), JPA (Hibernate, EclipseLink), Guice, GWT(SmartGWT, ExtGWT/GXT), Vaadin, Jasperreports, Apache Commons, Eclipse SWT, JUnit, Selenium (htmlelements).\n" +
-                "Python: Django.\n" +
-                "JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js\n" +
-                "Scala: SBT, Play2, Specs2, Anorm, Spray, Akka\n" +
-                "Технологии: Servlet, JSP/JSTL, JAX-WS, REST, EJB, RMI, JMS, JavaMail, JAXB, StAX, SAX, DOM, XSLT, MDB, JMX, JDBC, JPA, JNDI, JAAS, SOAP, AJAX, Commet, HTML5, ESB, CMIS, BPMN2, LDAP, OAuth1, OAuth2, JWT.\n" +
-                "Инструменты: Maven + plugin development, Gradle, настройка Ngnix,\n" +
-                "администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer.\n" +
-                "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования\n" +
-                "Родной русский, английский \"upper intermediate\""));
+        List<String> listQualification = new ArrayList<>();
+        listQualification.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
+        listQualification.add( "Version control: Subversion, Git, Mercury, ClearCase, Perforce");
+        listQualification.add("JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js");
+
+        resume.setSection(QUALIFICATIONS, new ListSection(listQualification));
 
         List<Organization> experience = new ArrayList<>();
         List<Organization.Position> javaPositionDetailsList = new ArrayList<>();

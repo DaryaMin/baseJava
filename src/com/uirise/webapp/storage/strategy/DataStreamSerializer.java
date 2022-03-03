@@ -30,10 +30,10 @@ public class DataStreamSerializer implements StreamSerializer {
                 switch (type) {
                     case PERSONAL:
                     case OBJECTIVE:
-                    case QUALIFICATIONS:
                         dos.writeUTF(((TextSection) section).getContent());
                         break;
                     case ACHIEVEMENT:
+                    case QUALIFICATIONS:
                         int listSize = ((ListSection)section).getList().size();
                         dos.writeInt(listSize);
                         for (int i = 0; i < listSize; i++) {
@@ -78,10 +78,10 @@ public class DataStreamSerializer implements StreamSerializer {
                 switch (sectionType) {
                     case PERSONAL:
                     case OBJECTIVE:
-                    case QUALIFICATIONS:
                         resume.setSection(sectionType, new TextSection(dis.readUTF()));
                         break;
                     case ACHIEVEMENT:
+                    case QUALIFICATIONS:
                         int sizeList = dis.readInt();
                         List<String> list = new ArrayList<>(sizeList);
                         for (int j = 0; j < sizeList; j++) {
