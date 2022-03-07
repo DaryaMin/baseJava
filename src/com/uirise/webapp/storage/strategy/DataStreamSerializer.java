@@ -5,6 +5,7 @@ import com.uirise.webapp.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +17,13 @@ public class DataStreamSerializer implements StreamSerializer {
             dos.writeUTF(r.getUuid());
             dos.writeUTF(r.getFullName());
             Map<ContactType, String> contacts = r.getContacts();
-            dos.writeInt(contacts.size());
-            for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+            writeWithExeption(dos, contacts.entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
-            }
+            });
+
             Map<SectionType, Section> sections = r.getSections();
-            dos.writeInt(sections.size());
-            for (Map.Entry<SectionType, Section> entry : sections.entrySet()) {
+            writeWithExeption(dos, sections.entrySet(), entry -> {
                 SectionType type = entry.getKey();
                 Section section = entry.getValue();
                 dos.writeUTF(type.name());
@@ -34,9 +34,9 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        List<String> list = ((ListSection)section).getList();
+                        List<String> list = ((ListSection) section).getList();
                         dos.writeInt(list.size());
-                        for (String detail: list) {
+                        for (String detail : list) {
                             dos.writeUTF(detail);
                         }
                         break;
@@ -58,9 +58,10 @@ public class DataStreamSerializer implements StreamSerializer {
                         }
                         break;
                 }
-            }
+            });
         }
     }
+
 
 
     @Override
@@ -122,4 +123,15 @@ public class DataStreamSerializer implements StreamSerializer {
     private LocalDate readDate(DataInputStream dis) throws IOException {
         return LocalDate.of(dis.readInt(), dis.readInt(), 1);
     }
-}
+
+    private  <T> void writeWithExeption (DataOutputStream dos, Collection<T> collection, Writer<T> writer) throws IOException {
+        dos.writeInt(collection.size());
+        for (T item : collection) {
+            writer.write(item);
+        }
+    }
+
+    private interface Writer<T> {
+        void write(T t) throws IOException;
+    }
+ }
