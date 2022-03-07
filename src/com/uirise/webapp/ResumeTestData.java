@@ -62,11 +62,11 @@ public class ResumeTestData {
         List<Organization> education = new ArrayList<>();
         List<Organization.Position> courseraPositionDetailsList = new ArrayList<>();
         courseraPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "","Functional Programming Principles in Scala by Martin Odersky"));
-        education.add(new Organization(new Link("Course", "http://course.com"), courseraPositionDetailsList));
+        education.add(new Organization(new Link("Course", null), courseraPositionDetailsList));
 
         List<Organization.Position> luxsoftPositionDetailsList = new ArrayList<>();
-        luxsoftPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "" ,"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML."));
-        education.add(new Organization(new Link("Luxoft", "http://luxsoft.com"),luxsoftPositionDetailsList));
+        luxsoftPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.", null));
+        education.add(new Organization(new Link("Luxoft", "http://luxsoft.com"), luxsoftPositionDetailsList));
 
         resume.setSection(EDUCATION, new OrganizationSection(education));
 
