@@ -34,7 +34,7 @@ public class Java8Stream {
                 .reduce(Integer::sum)
                 .get();
 
-        return integers.stream().filter(n -> (n % 2 == 0 && sum % 2 == 0) || (n % 2 != 0 && sum % 2 != 0) ).collect(Collectors.toList());
+        return integers.stream().filter(n -> n % 2 == sum % 2).collect(Collectors.toList());
     }
 
 }
