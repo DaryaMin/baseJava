@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import static com.uirise.webapp.ResumeTestData.createTestResume;
 import static org.junit.Assert.*;
@@ -18,10 +20,10 @@ public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
     protected Storage storage;
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
 
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
@@ -69,8 +71,10 @@ public abstract class AbstractStorageTest {
         expected.add(RESUME_1);
         expected.add(RESUME_2);
         expected.add(RESUME_3);
+        List<Resume>  actual = storage.getAllSorted();
         assertEquals(expected.size(), storage.getAllSorted().size());
-        assertEquals(expected, storage.getAllSorted());
+        Collections.sort(expected);
+        assertEquals(expected , actual);
     }
 
     @Test
