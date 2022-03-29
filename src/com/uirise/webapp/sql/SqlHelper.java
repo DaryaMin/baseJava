@@ -1,5 +1,6 @@
 package com.uirise.webapp.sql;
 
+import com.uirise.webapp.exception.ExistStorageException;
 import com.uirise.webapp.exception.StorageException;
 
 import java.sql.Connection;
@@ -22,7 +23,11 @@ public class SqlHelper {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             return executor.execute(ps);
         } catch (SQLException e) {
+            if (e.getSQLState().equals("23505")) {
+                throw new ExistStorageException(null);
+            }
             throw new StorageException(e);
         }
     }
 }
+
