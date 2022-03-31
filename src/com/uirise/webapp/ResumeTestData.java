@@ -28,7 +28,8 @@ public class ResumeTestData {
     public static Resume createTestResume(String uuid, String fullName){
         Resume resume = new Resume(uuid, fullName);
 
-//        resume.setContact(PHONE, "89521233");
+        resume.setContact(PHONE, "89521233");
+        resume.setContact(SKYPE, "sjdfssss");
 //        resume.setSection(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
 //        resume.setSection(PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
 //

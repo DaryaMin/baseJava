@@ -74,6 +74,7 @@ public abstract class AbstractStorageTest {
         List<Resume>  actual = storage.getAllSorted();
         assertEquals(expected.size(), storage.getAllSorted().size());
         Collections.sort(expected);
+        Collections.sort(actual);
         assertEquals(expected , actual);
     }
 
