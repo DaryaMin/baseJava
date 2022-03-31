@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class SqlHelper {
-    private static ConnectionFactory connectionFactory;
+    private final ConnectionFactory connectionFactory;
 
     public SqlHelper(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
@@ -29,7 +29,7 @@ public class SqlHelper {
             throw new StorageException(e);
         }
     }
-    public static <T> T transactionalExecute(SqlTransaction<T> executor) {
+    public  <T> T transactionalExecute(SqlTransaction<T> executor) {
         try (Connection conn = connectionFactory.getConnection()) {
             try {
                 conn.setAutoCommit(false);
