@@ -4,7 +4,10 @@ package com.uirise.webapp.sql;
 import com.uirise.webapp.exception.NotExistStorageException;
 import com.uirise.webapp.model.ContactType;
 import com.uirise.webapp.model.Resume;
+import com.uirise.webapp.model.Section;
+import com.uirise.webapp.model.SectionType;
 import com.uirise.webapp.storage.Storage;
+import com.uirise.webapp.util.JsonParser;
 
 import java.sql.*;
 import java.sql.PreparedStatement;
@@ -31,6 +34,8 @@ public class SqlStorage implements Storage {
                         "    SELECT * FROM resume r " +
                         " LEFT JOIN contact c " +
                         "        ON r.uuid = c.resume_uuid " +
+                            "LEFT JOIN section s " +
+                        " ON r.uuid = s.resume_uuid "+
                         "     WHERE r.uuid =? ",
                 ps -> {
                     ps.setString(1, uuid);
@@ -75,6 +80,7 @@ public class SqlStorage implements Storage {
                         ps.execute();
                     }
                     insertContact(conn, r);
+                    insertSections(conn, r);
                     return null;
                 }
         );
@@ -143,6 +149,27 @@ public class SqlStorage implements Storage {
         String value = rs.getString("value");
         if (value !=null) {
             r.setContact(ContactType.valueOf(rs.getString("type")), value);
+        }
+    }
+
+    private void addSection(ResultSet rs, Resume r) throws SQLException {
+        String content = rs.getString("content");
+        if (content != null) {
+            SectionType type = SectionType.valueOf(rs.getString("type"));
+            r.setSection(type, JsonParser.read(content, Section.class));
+        }
+    }
+
+    private void insertSections(Connection conn, Resume r) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, content) VALUES (?,?,?)")) {
+            for (Map.Entry<SectionType, Section> e : r.getSections().entrySet()) {
+                ps.setString(1, r.getUuid());
+                ps.setString(2, e.getKey().name());
+                Section section = e.getValue();
+                ps.setString(3, JsonParser.write(section, Section.class));
+                ps.addBatch();
+            }
+            ps.executeBatch();
         }
     }
 }
