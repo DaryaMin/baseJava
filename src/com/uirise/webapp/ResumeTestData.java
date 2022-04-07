@@ -49,27 +49,27 @@ public class ResumeTestData {
 
         resume.setSection(QUALIFICATIONS, new ListSection(listQualification));
 
-//        List<Organization> experience = new ArrayList<>();
-//        List<Organization.Position> javaPositionDetailsList = new ArrayList<>();
-//        javaPositionDetailsList.add(new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-//        experience.add(new Organization(new Link("Java Online Projects", "http://java.ru"), javaPositionDetailsList));
-//
-//        List<Organization.Position> wrikePositionDetailsList = new ArrayList<>();
-//        wrikePositionDetailsList.add(new Organization.Position(2003, Month.MARCH, 2005, Month.JANUARY, "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-//        experience.add(new Organization(new Link("Wrike", "http://wrike.ru"), wrikePositionDetailsList));
-//
-//        resume.setSection(EXPERIENCE, new OrganizationSection(experience));
-//
-//        List<Organization> education = new ArrayList<>();
-//        List<Organization.Position> courseraPositionDetailsList = new ArrayList<>();
-//        courseraPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "","Functional Programming Principles in Scala by Martin Odersky"));
-//        education.add(new Organization(new Link("Course", null), courseraPositionDetailsList));
-//
-//        List<Organization.Position> luxsoftPositionDetailsList = new ArrayList<>();
-//        luxsoftPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.", null));
-//        education.add(new Organization(new Link("Luxoft", "http://luxsoft.com"), luxsoftPositionDetailsList));
-//
-//        resume.setSection(EDUCATION, new OrganizationSection(education));
+        List<Organization> experience = new ArrayList<>();
+        List<Organization.Position> javaPositionDetailsList = new ArrayList<>();
+        javaPositionDetailsList.add(new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experience.add(new Organization(new Link("Java Online Projects", "http://java.ru"), javaPositionDetailsList));
+
+        List<Organization.Position> wrikePositionDetailsList = new ArrayList<>();
+        wrikePositionDetailsList.add(new Organization.Position(2003, Month.MARCH, 2005, Month.JANUARY, "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experience.add(new Organization(new Link("Wrike", "http://wrike.ru"), wrikePositionDetailsList));
+
+        resume.setSection(EXPERIENCE, new OrganizationSection(experience));
+
+        List<Organization> education = new ArrayList<>();
+        List<Organization.Position> courseraPositionDetailsList = new ArrayList<>();
+        courseraPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "","Functional Programming Principles in Scala by Martin Odersky"));
+        education.add(new Organization(new Link("Course", null), courseraPositionDetailsList));
+
+        List<Organization.Position> luxsoftPositionDetailsList = new ArrayList<>();
+        luxsoftPositionDetailsList.add(new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.", null));
+        education.add(new Organization(new Link("Luxoft", "http://luxsoft.com"), luxsoftPositionDetailsList));
+
+        resume.setSection(EDUCATION, new OrganizationSection(education));
 
         return resume;
         }

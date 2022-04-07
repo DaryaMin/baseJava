@@ -15,6 +15,7 @@
         <tr>
             <th>Имя</th>
             <th>Email</th>
+            <th><a href="resume?action=add"><img src="img/add.png"></a> </th>
         </tr>
         <c:forEach items="${resumes}" var="resume">
             <jsp:useBean id="resume" type="com.uirise.webapp.model.Resume"/>
