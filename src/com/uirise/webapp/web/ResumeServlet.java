@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.uirise.webapp.model.SectionType.ACHIEVEMENT;
+
 public class ResumeServlet extends HttpServlet {
     private Storage storage;
 
@@ -49,39 +51,39 @@ public class ResumeServlet extends HttpServlet {
             case "edit":
                 r = storage.get(uuid);
                 for (SectionType type : SectionType.values()) {
-                Section section = r.getSection(type);
-                switch (type) {
-                    case OBJECTIVE:
-                    case PERSONAL:
-                        if (section == null) {
-                            section = TextSection.EMPTY;
-                        }
-                        break;
-                    case ACHIEVEMENT:
-                    case QUALIFICATIONS:
-                        if (section == null) {
-                            section = ListSection.EMPTY;
-                        }
-                        break;
-                    case EXPERIENCE:
-                    case EDUCATION:
-                        OrganizationSection orgSection = (OrganizationSection) section;
-                        List<Organization> emptyFirstOrganizations = new ArrayList<>();
-                        emptyFirstOrganizations.add(Organization.EMPTY);
-                        if (orgSection != null) {
-                            for (Organization org : orgSection.getOrganizations()) {
-                                List<Organization.Position> emptyFirstPositions = new ArrayList<>();
-                                emptyFirstPositions.add(Organization.Position.EMPTY);
-                                emptyFirstPositions.addAll(org.getPositions());
-                                emptyFirstOrganizations.add(new Organization(org.getHomePage(), emptyFirstPositions));
+                    Section section = r.getSection(type);
+                    switch (type) {
+                        case OBJECTIVE:
+                        case PERSONAL:
+                            if (section == null) {
+                                section = TextSection.EMPTY;
                             }
-                        }
-                        section = new OrganizationSection(emptyFirstOrganizations);
-                        break;
+                            break;
+                        case ACHIEVEMENT:
+                        case QUALIFICATIONS:
+                            if (section == null) {
+                                section = ListSection.EMPTY;
+                            }
+                            break;
+                        case EXPERIENCE:
+                        case EDUCATION:
+                            OrganizationSection orgSection = (OrganizationSection) section;
+                            List<Organization> emptyFirstOrganizations = new ArrayList<>();
+                            emptyFirstOrganizations.add(Organization.EMPTY);
+                            if (orgSection != null) {
+                                for (Organization org : orgSection.getOrganizations()) {
+                                    List<Organization.Position> emptyFirstPositions = new ArrayList<>();
+                                    emptyFirstPositions.add(Organization.Position.EMPTY);
+                                    emptyFirstPositions.addAll(org.getPositions());
+                                    emptyFirstOrganizations.add(new Organization(org.getHomePage(), emptyFirstPositions));
+                                }
+                            }
+                            section = new OrganizationSection(emptyFirstOrganizations);
+                            break;
+                    }
+                    r.setSection(type, section);
                 }
-                r.setSection(type, section);
-            }
-            break;
+                break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");
         }
@@ -97,7 +99,7 @@ public class ResumeServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
         Resume r;
-        if (uuid == null|| uuid.length() == 0) {
+        if (uuid == null || uuid.length() == 0) {
             r = new Resume(fullName);
         } else {
             r = storage.get(uuid);
@@ -153,12 +155,14 @@ public class ResumeServlet extends HttpServlet {
                         break;
                 }
             }
-
-            if (uuid == null || uuid.length() == 0) {
-                storage.save(r);
-            } else {
-                storage.update(r);
-            }
-            response.sendRedirect("resume");
         }
-    }}
+        if (uuid == null || uuid.length() == 0) {
+            storage.save(r);
+        } else {
+            System.out.println(r.getSection(ACHIEVEMENT));
+            storage.update(r);
+        }
+        response.sendRedirect("resume");
+
+    }
+}
