@@ -99,6 +99,7 @@ public class ResumeServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
         Resume r;
+
         if (uuid == null || uuid.length() == 0) {
             r = new Resume(fullName);
         } else {
@@ -163,6 +164,5 @@ public class ResumeServlet extends HttpServlet {
             storage.update(r);
         }
         response.sendRedirect("resume");
-
     }
 }

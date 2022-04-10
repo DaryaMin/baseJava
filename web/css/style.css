@@ -69,3 +69,32 @@ a[href*="github."] {
     padding-left: 20px !important;
     background: url(../img/gh.png) no-repeat center left;
 }
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 3px solid darkblue;
+    font-family: Times, Times New Roman, Georgia, serif;
+}
+
+
+
+
+th {
+    letter-spacing: 2px;
+}
+
+td {
+    letter-spacing: 1px;
+    border-collapse: collapse;
+    border: 1px solid #3c6dd0;
+}
+
+tbody td {
+    text-align: center;
+}
+
+tfoot th {
+    text-align: right;
+}

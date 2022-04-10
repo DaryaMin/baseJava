@@ -19,7 +19,7 @@
         <input type="hidden" name="uuid" value="${resume.uuid}">
         <h1>Имя:</h1>
         <dl>
-            <input type="text" name="fullName" size=55 value="${resume.fullName}">
+            <input type="text" name="fullName" size=55 value="${resume.fullName}" required>
         </dl>
         <h2>Контакты:</h2>
         <c:forEach var="type" items="<%=ContactType.values()%>">
@@ -90,7 +90,7 @@
             </c:choose>
         </c:forEach>
         <button type="submit">Сохранить</button>
-        <button onclick="window.history.back()">Отменить</button>
+        <button type="reset" onclick="window.history.back()">Отменить</button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
