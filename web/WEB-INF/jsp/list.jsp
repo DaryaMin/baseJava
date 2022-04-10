@@ -11,12 +11,17 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
+    <button><a href="resume?action=add">
+        <img src="img/add.png" alt="" style="vertical-align:middle">
+        Добавить Резюме</a>
+    </button>
     <table>
         <caption>Список всех резюме</caption>
         <tr>
             <th>Имя</th>
             <th>Email</th>
-            <th><a href="resume?action=add"><img src="img/add.png"></a> </th>
+            <th>Удалить</th>
+            <th>Редактировать</th>
         </tr>
         <c:forEach items="${resumes}" var="resume">
             <jsp:useBean id="resume" type="com.uirise.webapp.model.Resume"/>
