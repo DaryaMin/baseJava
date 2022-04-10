@@ -19,7 +19,7 @@
         <input type="hidden" name="uuid" value="${resume.uuid}">
         <h1>Имя:</h1>
         <dl>
-            <input type="text" name="fullName" size=55 value="${resume.fullName}" required>
+            <input type="text" name="fullName" size=55 value="${resume.fullName}" pattern="^[^\s]+(\s.*)?$" title="Имя не может содержать только пробелы" required>
         </dl>
         <h2>Контакты:</h2>
         <c:forEach var="type" items="<%=ContactType.values()%>">
