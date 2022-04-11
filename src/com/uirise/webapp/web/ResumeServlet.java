@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.uirise.webapp.model.SectionType.ACHIEVEMENT;
 
@@ -129,7 +130,9 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        r.setSection(type, new ListSection(sectionTypeValue.split("\\n")));
+                        ListSection list = new ListSection(sectionTypeValue.split("\\n"));
+                        ListSection newList = new ListSection(list.getList().stream().filter(element -> !element.equals("\r")).collect(Collectors.toList()));
+                        r.setSection(type, newList);
                         break;
                     case EDUCATION:
                     case EXPERIENCE:
