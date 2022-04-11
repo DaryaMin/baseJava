@@ -140,7 +140,7 @@ public class ResumeServlet extends HttpServlet {
                         String[] urls = request.getParameterValues(type.name() + "url");
                         for (int i = 0; i < sectionTypeValues.length; i++) {
                             String name = sectionTypeValues[i];
-                            if (name != null) {
+                            if (name != null && !name.equals("")) {
                                 List<Organization.Position> positions = new ArrayList<>();
                                 String pfx = type.name() + i;
                                 String[] startDates = request.getParameterValues(pfx + "startDate");
